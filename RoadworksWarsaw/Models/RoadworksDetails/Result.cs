@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace RoadworksWarsaw.Models.RoadworksDetails
 {
@@ -52,12 +53,6 @@ namespace RoadworksWarsaw.Models.RoadworksDetails
         [JsonPropertyName("CreationDate")]
         public DateTime CreationDate { get; set; }
 
-        [JsonPropertyName("StartWorkPlan")]
-        public StartWorkPlan StartWorkPlan { get; set; }
-
-        [JsonPropertyName("EndWorkPlan")]
-        public EndWorkPlan EndWorkPlan { get; set; }
-
         [JsonPropertyName("CoorindationFinshed")]
         public string CoorindationFinshed { get; set; }
 
@@ -69,5 +64,8 @@ namespace RoadworksWarsaw.Models.RoadworksDetails
 
         [JsonPropertyName("GeoJson")]
         public string GeoJson { get; set; }
+
+        public GeoJson Geo => JsonSerializer.Deserialize<GeoJson>(GeoJson);
+
     }
 }

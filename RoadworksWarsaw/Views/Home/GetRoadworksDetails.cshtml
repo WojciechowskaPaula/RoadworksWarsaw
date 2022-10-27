@@ -1,6 +1,10 @@
 ﻿@using RoadworksWarsaw.Models.RoadworksDetails
 @model OpenInvestsDetails
 
+@{
+    string latitude = Model.Result.Geo.Coordinates.First()[1].ToString().Replace(',', '.');
+    string longitude = Model.Result.Geo.Coordinates.First()[0].ToString().Replace(',', '.');
+}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -20,6 +24,10 @@
             <td scope="row">@Model.Result.Street</td>
             <td scope="row">@Model.Result.From</td>
             <td scope="row">@Model.Result.To</td>
+
         </tr>
     </tbody>
 </table>
+<div>
+    <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="@($"https://maps.google.com/?q={latitude},{longitude}&output=embed&z=14")"></iframe>
+</div>
