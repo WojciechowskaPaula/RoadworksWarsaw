@@ -6,15 +6,16 @@
 
 }
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Street</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Last modify date</th>
-            <th>Duration in days</th>
+            <th scope="col">Name</th>
+            <th scope="col">Street</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Last modify date</th>
+            <th scope="col">Duration in days</th>
+           <th scope="col">Details</th>
         </tr>
     </thead>
     <tbody>
@@ -22,14 +23,14 @@
         @foreach (var item in Model.Result.Items.InvestItem)
         {
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Street</td>
-                <td>@item.StartDate.ToString("d")</td>
-                <td>@item.EndDate.ToString("d")</td>
-                <td>@item.LastModifyDate</td>
-                <td>@item.Duration.Days</td>
+                <td scope="row">@item.Name</td>
+                <td scope="row">@item.Street</td>
+                <td scope="row">@item.StartDate.ToString("d")</td>
+                <td scope="row">@item.EndDate.ToString("d")</td>
+                <td scope="row">@item.LastModifyDate</td>
+                <td scope="row">@item.Duration.Days</td>
+                <th scope="row"><a class="btn btn-info" asp-action="GetRoadworksDetails" asp-route-investId="@item.ID">Details</a></th>
             </tr>
-
         }
     </tbody>
 </table>

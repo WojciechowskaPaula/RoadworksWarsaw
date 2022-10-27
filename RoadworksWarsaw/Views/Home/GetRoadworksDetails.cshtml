@@ -1,0 +1,25 @@
+﻿@using RoadworksWarsaw.Models.RoadworksDetails
+@model OpenInvestsDetails
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Invest Number</th>
+            <th scope="col">Invest Name</th>
+            <th scope="col"> Company name</th>
+            <th scope="col">Invest Street</th>
+            <th scope="col">Traffic jams can start from:</th>
+            <th scope="col">Traffic jams can end up on:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">@Model.Result.InvestNumber</td>
+            <td scope="row">@Model.Result.InvestName</td>
+            <td scope="row">@Model.Result.CompanyName</td>
+            <td scope="row">@Model.Result.Street</td>
+            <td scope="row">@Model.Result.From</td>
+            <td scope="row">@Model.Result.To</td>
+        </tr>
+    </tbody>
+</table>
