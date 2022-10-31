@@ -17,6 +17,7 @@ namespace RoadworksWarsaw.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var client = new RestClient("https://api.um.warszawa.pl/api");
@@ -29,8 +30,8 @@ namespace RoadworksWarsaw.Controllers
             return View(response);
         }
 
-
-        public async Task <IActionResult> GetRoadworksDetails(string investId)
+        [HttpGet]
+        public async Task<IActionResult> GetRoadworksDetails(string investId)
         {
             var client = new RestClient("https://api.um.warszawa.pl/api");
             var request = new RestRequest("action/get_open_invest_details");
@@ -41,6 +42,28 @@ namespace RoadworksWarsaw.Controllers
             return View(response);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Search(string street)
+        {
+            if (string.IsNullOrEmpty(street))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var client = new RestClient("https://api.um.warszawa.pl/api");
+                var request = new RestRequest("action/get_open_invests");
+                request.AddParameter("resource_id", "26b9ade1-f5d4-439e-84b4-9af37ab7ebf1");
+                request.AddParameter("pageSize", 100);
+                request.AddParameter("startIndex", 1);
+                request.AddParameter("apikey", APIKey.ApiKey);
+                request.AddParameter("streetName", $"{street}");
+                var response = await client.GetAsync<OpenInvests>(request);
+
+                ViewBag.SearchString = street;
+                return View("Index", response);
+            }
+        }
 
         public IActionResult Privacy()
         {

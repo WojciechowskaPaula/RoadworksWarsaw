@@ -3,35 +3,56 @@
 
 @{
     ViewData["Title"] = "Home Page";
-
 }
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Street</th>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Last modify date</th>
-            <th scope="col">Duration in days</th>
-           <th scope="col">Details</th>
-        </tr>
-    </thead>
-    <tbody>
+@{
+    int searchCount = int.Parse(Model.Result.ItemsCount);
+}
 
-        @foreach (var item in Model.Result.Items.InvestItem)
-        {
+<form asp-action="Search" asp-controller="Home" method="get">
+    <div class="form-outline">
+        <input type="text" id="search" class="form-control" placeholder="Search by street name" name="street" aria-label="Search" value="@ViewBag.SearchString" />
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+   <a asp-controller="Home" asp-action="Index" class="btn btn-dark">Clear</a> 
+</form>
+
+@if (searchCount < 1)
+{
+    <br />
+    <p>Search results not found, please try again.</p>
+}
+
+else
+{
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td scope="row">@item.Name</td>
-                <td scope="row">@item.Street</td>
-                <td scope="row">@item.StartDate.ToString("d")</td>
-                <td scope="row">@item.EndDate.ToString("d")</td>
-                <td scope="row">@item.LastModifyDate</td>
-                <td scope="row">@item.Duration.Days</td>
-                <th scope="row"><a class="btn btn-info" asp-action="GetRoadworksDetails" asp-route-investId="@item.ID">Details</a></th>
+                <th scope="col">Name</th>
+                <th scope="col">Street</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Last modify date</th>
+                <th scope="col">Duration in days</th>
+                <th scope="col">Details</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.Result.Items.InvestItem)
+            {
+                <tr>
+                    <td scope="row">@item.Name</td>
+                    <td scope="row">@item.Street</td>
+                    <td scope="row">@item.StartDate.ToString("d")</td>
+                    <td scope="row">@item.EndDate.ToString("d")</td>
+                    <td scope="row">@item.LastModifyDate</td>
+                    <td scope="row">@item.Duration.Days</td>
+                    <th scope="row"><a class="btn btn-info" asp-action="GetRoadworksDetails" asp-route-investId="@item.ID">Details</a></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 
