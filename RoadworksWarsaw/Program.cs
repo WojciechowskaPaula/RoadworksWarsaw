@@ -1,7 +1,15 @@
-var builder = WebApplication.CreateBuilder(args);
+using Serilog;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
+// Add services to the container.
+
+var logger = new LoggerConfiguration()
+    .WriteTo.File("logs\\Roadworks.logs.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
 
 var app = builder.Build();
 
